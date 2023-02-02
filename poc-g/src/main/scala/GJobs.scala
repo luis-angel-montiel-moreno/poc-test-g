@@ -29,11 +29,16 @@ object GJobs {
     dfQ.explain()
     dfQ.printSchema()
     dfQ.show()
+  }
+
+  def sqlQueryParquetPartitionedExample(pathParquet: String, tableName: String, query: String,
+                                  spark: SparkSession, sc: SparkContext, sqlContext: SQLContext): Unit = {
 
     val parquetPartitionedDF = spark.read
-      .parquet(Main.parquetPath + "/customer=hugo")
-    val dfx = parquetPartitionedDF.select(col("data")).where(col("year")===lit(2023))
+      .parquet(TaskCSVBackupProperties.parquetPath + "/customer=hugo")
+    val dfx = parquetPartitionedDF.select(col("data")).where(col("year") === lit(2023))
     dfx.show()
   }
+
 
 }

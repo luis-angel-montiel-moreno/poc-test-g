@@ -8,7 +8,7 @@ object GTasks {
     Files.list(dir).forEach(p => println(p.toString))
     Files.list(dir)
       .forEach(csvPath =>
-        GJobs.gBackupJob(csvPath.toString, Main.parquetPath,
+        GJobs.gBackupJob(csvPath.toString, TaskCSVBackupProperties.parquetPath,
           SparkBooster.spark, SparkBooster.sc, SparkBooster.sqlContext ))
   }
 
