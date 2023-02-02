@@ -1,3 +1,4 @@
+import org.apache.spark.sql.functions.{col, lit}
 import org.apache.spark.sql.{SQLContext, SparkSession}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -19,6 +20,7 @@ object GJobs {
       .parquet(parquetPath)
   }
 
+  /* Example of two different ways to execute SQL queries */
   def sqlQueryParquet(pathParquet: String, tableName:String, query: String,
                       spark: SparkSession, sc: SparkContext, sqlContext: SQLContext ): Unit = {
     val parquetDF = spark.read.parquet(pathParquet)
@@ -30,7 +32,8 @@ object GJobs {
 
     val parquetPartitionedDF = spark.read
       .parquet(Main.parquetPath + "/customer=hugo")
-    parquetPartitionedDF.show()
+    val dfx = parquetPartitionedDF.select(col("data")).where(col("year")===lit(2023))
+    dfx.show()
   }
 
 }
