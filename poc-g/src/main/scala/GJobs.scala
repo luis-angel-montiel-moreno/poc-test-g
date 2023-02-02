@@ -19,4 +19,18 @@ object GJobs {
       .parquet(parquetPath)
   }
 
+  def sqlQueryParquet(pathParquet: String, tableName:String, query: String,
+                      spark: SparkSession, sc: SparkContext, sqlContext: SQLContext ): Unit = {
+    val parquetDF = spark.read.parquet(pathParquet)
+    parquetDF.createOrReplaceTempView(tableName)
+    val dfQ = spark.sql(query)
+    dfQ.explain()
+    dfQ.printSchema()
+    dfQ.show()
+
+    val parquetPartitionedDF = spark.read
+      .parquet(Main.parquetPath + "/customer=hugo")
+    parquetPartitionedDF.show()
+  }
+
 }

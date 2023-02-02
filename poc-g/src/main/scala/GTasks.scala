@@ -12,5 +12,4 @@ object GTasks {
           SparkBooster.spark, SparkBooster.sc, SparkBooster.sqlContext ))
   }
 
-
 }
