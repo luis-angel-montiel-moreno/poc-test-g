@@ -4,10 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object GJobs {
 
-
-
-
-  def gJob(csvPath:String, parquetPath:String,
+  def gBackupJob(csvPath:String, parquetPath:String,
            spark: SparkSession, sc: SparkContext, sqlContext: SQLContext ): Unit = {
     import spark.implicits._
 
@@ -20,8 +17,6 @@ object GJobs {
 
     df.write.mode("append").partitionBy("customer", "year", "month","day")
       .parquet(parquetPath)
-
-
   }
 
 }
